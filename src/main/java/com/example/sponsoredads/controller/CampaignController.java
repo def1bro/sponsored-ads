@@ -31,7 +31,7 @@ public class CampaignController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Campaign> createCampaign(@Valid @RequestBody CreateCampaignDto createCampaignDto) throws ResourceNotFoundException {
-        if (createCampaignDto == null ) {
+        if (createCampaignDto == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 

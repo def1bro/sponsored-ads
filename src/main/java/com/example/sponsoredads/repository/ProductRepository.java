@@ -14,7 +14,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
             "ON p.serial_number = cp.product_serialNumber" +
             "LEFT JOIN campaigns c" +
             "ON cp.campaign_id = c.id" +
-            "WHERE p.category= :category"+
+            "WHERE p.category= :category" +
             "AND CURDATE() > c.start_date AND CURDATE() + INTERVAL 10 DAY > c.start_date" +
             "ORDER BY c.bid DESC" +
             "LIMIT 1;",

@@ -1,6 +1,5 @@
 package com.example.sponsoredads.controller;
 
-import com.example.sponsoredads.model.Campaign;
 import com.example.sponsoredads.model.Product;
 import com.example.sponsoredads.service.CampaignService;
 import com.example.sponsoredads.service.ProductService;

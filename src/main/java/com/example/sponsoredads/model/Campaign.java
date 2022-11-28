@@ -26,6 +26,14 @@ public class Campaign implements Serializable {
         this.products = products;
     }
 
+    public Campaign(long id,String name, Date startDate, BigDecimal bid, Set<Product> products) {
+        this.id = id;
+        this.name = name;
+        this.startDate = startDate;
+        this.bid = bid;
+        this.products = products;
+    }
+
 
     @Id
     @Column(name = "id", nullable = false)
@@ -50,7 +58,7 @@ public class Campaign implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "product_serialNumber", referencedColumnName = "serial_number",
                             nullable = false, updatable = false)})
-    private Set<Product> products = new HashSet<>();
+    private Set<Product> products;
 
 
     @Override

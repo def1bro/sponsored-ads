@@ -23,13 +23,13 @@ public class ProductService {
     public Set<Product> findProductsById(Set<Long> productIds) {
         Set<Product> products = new HashSet<>();
         productIds.forEach(id -> {
-          products.add(productRepository.findById(id).get());
+            products.add(productRepository.findById(id).get());
         });
 
         return products;
     }
 
-    public Product findHighestBidProductByCategory(String category){
+    public Product findHighestBidProductByCategory(String category) {
         return this.productRepository.findHighestBidProductByCategory(category);
     }
 
