@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -19,9 +20,13 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Set<Product> findProductsById(Set<BigDecimal> productIds) {
-        // @TODO
-        return null;
+    public Set<Product> findProductsById(Set<Long> productIds) {
+        Set<Product> products = new HashSet<>();
+        productIds.forEach(id -> {
+          products.add(productRepository.findById(id).get());
+        });
+
+        return products;
     }
 
     public Product findHighestBidProductByCategory(String category){

@@ -28,7 +28,7 @@ public class CreateCampaignDto {
     private BigDecimal bid;
 
     @NotNull("Product ids are required.")
-    private Set<BigDecimal> productIds;
+    private Set<Long> productIds;
 
 
     public Campaign toCampaign(Set<Product> products) {
