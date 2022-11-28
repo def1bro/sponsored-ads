@@ -15,7 +15,7 @@ public class Campaign implements Serializable {
     public Campaign() {
     }
 
-    public Campaign(String name, Date startDate, BigDecimal bid, Set<Product>  products) {
+    public Campaign(String name, Date startDate, BigDecimal bid, Set<Product> products) {
         this.name = name;
         this.startDate = startDate;
         this.bid = bid;
@@ -36,7 +36,6 @@ public class Campaign implements Serializable {
 
     @Column(name = "bid")
     private BigDecimal bid;
-
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -87,5 +86,16 @@ public class Campaign implements Serializable {
 
     public void setproducts(Set<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Campaign{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", bid=" + bid +
+                ", products=" + products +
+                '}';
     }
 }

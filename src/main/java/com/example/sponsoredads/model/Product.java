@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -25,15 +26,22 @@ public class Product implements Serializable {
     private BigDecimal price;
 
 
+    @ManyToMany(mappedBy = "products")
+    private Set<Campaign> campaigns = new java.util.LinkedHashSet<>();
+
+    public Set<Campaign> getCampaigns() {
+        return campaigns;
+    }
+
+    public Product() {
+
+    }
     public Product(String title, String category, BigDecimal price) {
         this.title = title;
         this.category = category;
         this.price = price;
     }
 
-    public Product() {
-
-    }
 
     public long getSerialNumber() {
         return serialNumber;
@@ -69,5 +77,13 @@ public class Product implements Serializable {
         return category;
     }
 
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "serialNumber=" + serialNumber +
+                ", title='" + title + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
