@@ -35,8 +35,8 @@ public class CampaignController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
-        Set<Product> products = productService.findProductsById(createCampaignDto.getProductIds());
-        if (products.isEmpty()) {
+        Set<Product> products = productService.findProductsById(Set.copyOf(createCampaignDto.getProductIds()));
+        if (products.isEmpty() || products == null) {
             System.out.println("[CampaignController] no matching products found");
             throw new ResourceNotFoundException("No product ids were found with the provided: " + createCampaignDto.getProductIds());
         }

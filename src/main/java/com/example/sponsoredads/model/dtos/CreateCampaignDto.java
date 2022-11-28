@@ -9,6 +9,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -28,7 +29,7 @@ public class CreateCampaignDto {
     private BigDecimal bid;
 
     @NotNull("Product ids are required.")
-    private Set<Long> productIds;
+    private List<Long> productIds;
 
 
     public Campaign toCampaign(Set<Product> products) {

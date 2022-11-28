@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ProductService {
@@ -21,10 +23,9 @@ public class ProductService {
     }
 
     public Set<Product> findProductsById(Set<Long> productIds) {
-        Set<Product> products = new HashSet<>();
-        productIds.forEach(id -> {
-            products.add(productRepository.findById(id).get());
-        });
+        Set<Product> products = productIds.stream()
+                .map(id -> productRepository.findBySerialNumber(id))
+                .collect(Collectors.toSet());
 
         return products;
     }
