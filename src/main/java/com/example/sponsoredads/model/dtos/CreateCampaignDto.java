@@ -5,7 +5,6 @@ import com.example.sponsoredads.model.Product;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 
-import javax.validation.*;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -13,10 +12,8 @@ import java.util.Date;
 import java.util.Set;
 
 
-//@TODO continue DTO
-
 @Data
-public class CampaignDto {
+public class CreateCampaignDto {
 
     @NotNull("Name of campaign is required.")
     private String name;
@@ -27,16 +24,19 @@ public class CampaignDto {
     private Date startDate;
 
     @NotNull("The bid is required.")
-    @Positive(message = "Bid must be a positive number.")
+    @Positive(message = "Bid must be a positive number(BigDecimal type).")
     private BigDecimal bid;
 
     @NotNull("Product ids are required.")
-    private Set<Product> products;
+    private Set<BigDecimal> productIds;
 
 
-/*    public Campaign toCampaign() {
-        return new Campaign()
-                .setName(name)
-
-    }*/
+    public Campaign toCampaign(Set<Product> products) {
+        return Campaign.builder()
+                .name(name)
+                .startDate(startDate)
+                .bid(bid)
+                .products(products)
+                .build();
+    }
 }

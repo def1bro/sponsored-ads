@@ -1,12 +1,14 @@
 package com.example.sponsoredads.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
+@Data
 @Table(name = "products")
 public class Product implements Serializable {
 
@@ -36,46 +38,13 @@ public class Product implements Serializable {
     public Product() {
 
     }
+
     public Product(String title, String category, BigDecimal price) {
         this.title = title;
         this.category = category;
         this.price = price;
     }
 
-
-    public long getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(long serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getCategory() {
-        return category;
-    }
 
     @Override
     public String toString() {

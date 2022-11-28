@@ -1,6 +1,8 @@
 package com.example.sponsoredads.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Builder
+@Data
 @Table(name = "campaigns")
 public class Campaign implements Serializable {
 
@@ -48,45 +52,6 @@ public class Campaign implements Serializable {
                             nullable = false, updatable = false)})
     private Set<Product> products = new HashSet<>();
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public BigDecimal getBid() {
-        return bid;
-    }
-
-    public void setBid(BigDecimal bid) {
-        this.bid = bid;
-    }
-
-    public Set<Product> getproducts() {
-        return products;
-    }
-
-    public void setproducts(Set<Product> products) {
-        this.products = products;
-    }
 
     @Override
     public String toString() {

@@ -19,11 +19,11 @@ public class CampaignService {
         this.campaignRepository = campaignRepository;
     }
 
-    public  Campaign createNewCampaign(Campaign campaign) {
+    public Campaign createNewCampaign(Campaign campaign) {
         return this.campaignRepository.save(campaign);
     }
 
-    public List<Campaign> getAllCampaigns(){
+    public List<Campaign> getAllCampaigns() {
         List<Campaign> campaigns = new LinkedList<>();
         this.campaignRepository.findAll().forEach(campaigns::add);
 
