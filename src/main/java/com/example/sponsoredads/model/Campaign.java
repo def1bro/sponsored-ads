@@ -45,7 +45,7 @@ public class Campaign implements Serializable {
                     @JoinColumn(name = "campaign_id", referencedColumnName = "id",
                             nullable = false, updatable = false)},
             inverseJoinColumns = {
-                    @JoinColumn(name = "product_id", referencedColumnName = "serial_number",
+                    @JoinColumn(name = "product_serialNumber", referencedColumnName = "serial_number",
                             nullable = false, updatable = false)})
     private Set<Product> products = new HashSet<>();
 
