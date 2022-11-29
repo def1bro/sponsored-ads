@@ -17,3 +17,9 @@ Content-Type: application/json
 
 }
 
+
+
+### Serve Ad Api - use .http files on intellij or through Postman
+### Example post request:
+GET http://localhost:8080/api/v1/ad/serve/Shoes
+

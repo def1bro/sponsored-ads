@@ -20,9 +20,9 @@ public class AdController {
     }
 
     /***
-     *
+     * Serve ad by category, from the highest bid active campaign
      * @param category
-     * @return
+     * @return product from the category provided, that is found in the highest bid active campaign (active ++ less than 10 days have passed by since it started)
      */
     @GetMapping("/serve/{category}")
     public ResponseEntity<ProductDto> retrieveHighestBidProduct(@PathVariable("category") String category) {

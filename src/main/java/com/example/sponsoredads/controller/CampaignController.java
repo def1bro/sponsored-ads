@@ -30,6 +30,11 @@ public class CampaignController {
         this.productService = productService;
     }
 
+    /***
+     * Create campaign from the provided values
+     * @param createCampaignDto - name, startDate, productIds, bid
+     * @return Campaign - created campaign
+     */
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Campaign> createCampaign(@Valid @RequestBody CampaignDto createCampaignDto) throws ResourceNotFoundException {
         if (createCampaignDto == null) {
