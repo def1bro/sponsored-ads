@@ -4,9 +4,10 @@ package com.example.sponsoredads.controller;
 import com.example.sponsoredads.exceptions.ResourceNotFoundException;
 import com.example.sponsoredads.model.Campaign;
 import com.example.sponsoredads.model.Product;
-import com.example.sponsoredads.model.dtos.CreateCampaignDto;
+import com.example.sponsoredads.model.dtos.CampaignDto;
 import com.example.sponsoredads.service.CampaignService;
 import com.example.sponsoredads.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Set;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/campaign")
 public class CampaignController {
@@ -30,14 +31,14 @@ public class CampaignController {
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Campaign> createCampaign(@Valid @RequestBody CreateCampaignDto createCampaignDto) throws ResourceNotFoundException {
+    public ResponseEntity<Campaign> createCampaign(@Valid @RequestBody CampaignDto createCampaignDto) throws ResourceNotFoundException {
         if (createCampaignDto == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
-        Set<Product> products = productService.findProductsById(Set.copyOf(createCampaignDto.getProductIds()));
-        if (products.isEmpty() || products == null) {
-            System.out.println("[CampaignController] no matching products found");
+        Set<Product> products = productService.findProductsByIds(createCampaignDto.getProductIds());
+        if (products.isEmpty()) {
+            log.error("[CampaignController] no matching products found");
             throw new ResourceNotFoundException("No product ids were found with the provided: " + createCampaignDto.getProductIds());
         }
 

@@ -1,39 +1,20 @@
 package com.example.sponsoredads.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Builder
 @Data
-@Table(name = "campaigns")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "campaign")
 public class Campaign implements Serializable {
-
-    public Campaign() {
-    }
-
-    public Campaign(String name, Date startDate, BigDecimal bid, Set<Product> products) {
-        this.name = name;
-        this.startDate = startDate;
-        this.bid = bid;
-        this.products = products;
-    }
-
-    public Campaign(long id,String name, Date startDate, BigDecimal bid, Set<Product> products) {
-        this.id = id;
-        this.name = name;
-        this.startDate = startDate;
-        this.bid = bid;
-        this.products = products;
-    }
-
 
     @Id
     @Column(name = "id", nullable = false)
@@ -49,17 +30,10 @@ public class Campaign implements Serializable {
     @Column(name = "bid")
     private BigDecimal bid;
 
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "campaigns_products",
-            joinColumns = {
-                    @JoinColumn(name = "campaign_id", referencedColumnName = "id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "product_serialNumber", referencedColumnName = "serial_number",
-                            nullable = false, updatable = false)})
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "campaign_product", joinColumns = @JoinColumn(name = "campaign_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products;
-
 
     @Override
     public String toString() {

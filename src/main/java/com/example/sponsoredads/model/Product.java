@@ -1,22 +1,27 @@
 package com.example.sponsoredads.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
+@Builder
 @Data
-@Table(name = "products")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "product")
 public class Product implements Serializable {
 
-
     @Id
-    @Column(name = "serial_number", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long serialNumber;
+    private long id;
+
+    @Column(name = "serial_number", nullable = false)
+    private String serialNumber;
 
     @Column(name = "title")
     private String title;
@@ -27,23 +32,10 @@ public class Product implements Serializable {
     @Column(name = "price")
     private BigDecimal price;
 
-
-    @ManyToMany(mappedBy = "products")
-    private Set<Campaign> campaigns = new java.util.LinkedHashSet<>();
-
-    public Set<Campaign> getCampaigns() {
-        return campaigns;
-    }
-
-    public Product() {
-
-    }
-
-    public Product(String title, String category, BigDecimal price) {
-        this.title = title;
-        this.category = category;
-        this.price = price;
-    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="campaign_product", joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "campaign_id"))
+    private Set<Campaign> campaigns;
 
 
     @Override

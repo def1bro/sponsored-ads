@@ -6,11 +6,10 @@ import com.example.sponsoredads.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ProductService {
@@ -22,20 +21,20 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Set<Product> findProductsById(Set<Long> productIds) {
-        Set<Product> products = productIds.stream()
-                .map(id -> productRepository.findBySerialNumber(id))
+    public Set<Product> findProductsByIds(Set<Long> productIds) {
+        if (productIds == null || productIds.isEmpty()) {
+            return Collections.emptySet();
+        }
+        return StreamSupport.stream(productRepository.findAllById(productIds).spliterator(), false)
                 .collect(Collectors.toSet());
-
-        return products;
     }
 
-    public Product findHighestBidProductByCategory(String category) {
-        return this.productRepository.findHighestBidProductByCategory(category);
+    public Product findHighestBidProductByCategoryAndActiveCampaign(String category) {
+        return this.productRepository.findHighestBidProductByCategoryAndActiveCampaign(category);
     }
 
-    public Product findHighestBidProduct() {
-        return this.productRepository.findHighestBidProduct();
+    public Product findHighestBidProductAndActiveCampaign() {
+        return this.productRepository.findHighestBidProductAndActiveCampaign();
 
     }
 }

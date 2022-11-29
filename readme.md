@@ -1,10 +1,7 @@
 # Getting Started
 
 ### LOADING DB
-Re-name the file .import.sql to import.sql
-Spring Boot should load the .import.sql under the resources file.
-If you are running a different DB than H2 or the queries didn't get executed you can 
-copy and paste the SQL queries and execute them in the DB. 
+At startup data is loaded into the DB using the LoadDatabase.java file
 
 
 ### Creating Campaign API - use .http files on intellij or through Postman 

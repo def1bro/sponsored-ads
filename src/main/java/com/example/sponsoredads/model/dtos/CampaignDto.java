@@ -9,16 +9,14 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 
 @Data
-public class CreateCampaignDto {
+public class CampaignDto {
 
     @NotNull("Name of campaign is required.")
     private String name;
-
 
     @NotNull("The start date is required.")
     @FutureOrPresent(message = "The start date must be today or in the future.")
@@ -29,8 +27,7 @@ public class CreateCampaignDto {
     private BigDecimal bid;
 
     @NotNull("Product ids are required.")
-    private List<Long> productIds;
-
+    private Set<Long> productIds;
 
     public Campaign toCampaign(Set<Product> products) {
         return Campaign.builder()

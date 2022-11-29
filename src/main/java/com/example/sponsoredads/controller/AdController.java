@@ -1,41 +1,43 @@
 package com.example.sponsoredads.controller;
 
 import com.example.sponsoredads.model.Product;
-import com.example.sponsoredads.service.CampaignService;
+import com.example.sponsoredads.model.dtos.ProductDto;
 import com.example.sponsoredads.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api/v1/ad")
 public class AdController {
 
-    private final CampaignService campaignService;
     private final ProductService productService;
 
     @Autowired
-    public AdController(CampaignService campaignService, ProductService productService) {
-        this.campaignService = campaignService;
+    public AdController(ProductService productService) {
         this.productService = productService;
     }
 
-
+    /***
+     *
+     * @param category
+     * @return
+     */
     @GetMapping("/serve/{category}")
-    public ResponseEntity<Product> retrieveHighestBidProduct(@PathVariable("category") String category) {
+    public ResponseEntity<ProductDto> retrieveHighestBidProduct(@PathVariable("category") String category) {
         if (category == null || category.isBlank()) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
-        Product highestBidProduct = this.productService.findHighestBidProductByCategory(category);
+        Product highestBidProduct = productService.findHighestBidProductByCategoryAndActiveCampaign(category);
         if (highestBidProduct == null) {
-            highestBidProduct = this.productService.findHighestBidProduct();
+            highestBidProduct = productService.findHighestBidProductAndActiveCampaign();
             if (highestBidProduct == null) {
                 return null;
             }
         }
-        return new ResponseEntity<>(highestBidProduct, HttpStatus.CREATED);
+
+        return new ResponseEntity<>(ProductDto.buildProductDto(highestBidProduct), HttpStatus.CREATED);
     }
 }
